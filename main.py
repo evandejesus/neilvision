@@ -8,7 +8,6 @@ if not cap.isOpened():
     print('cannot open camera')
     exit()
 
-ret, frame = cap.read()
 while True:
     ret, frame = cap.read()
     if not ret:
