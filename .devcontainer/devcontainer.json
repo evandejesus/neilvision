@@ -1,0 +1,44 @@
+// For format details, see https://aka.ms/vscode-remote/devcontainer.json or this file's README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.117.1/containers/docker-existing-dockerfile
+{
+	"name": "neilvision",
+	// Sets the run context to one level up instead of the .devcontainer folder.
+	"context": "..",
+	// Update the 'dockerFile' property if you aren't using the standard 'Dockerfile' filename.
+	"dockerFile": "../Dockerfile",
+	// Set *default* container specific settings.json values on container create.
+	"settings": {
+		"terminal.integrated.shell.linux": "/bin/bash",
+		"terminal.integrated.cwd": "/home/${localEnv:USER}/app"
+	},
+	// build args 
+	"build": {
+		"args": {
+			"user": "${localEnv:USER}"
+		}
+	},
+	// runArgs
+	"runArgs": [
+		"--device",
+		"/dev/video0:/dev/video0"
+	],
+	// Add the IDs of extensions you want installed when the container is created.
+	"extensions": [],
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	"forwardPorts": [
+		5000,
+		8888
+	],
+	// volume mounts
+	"mounts": [
+		"type=bind,source=/tmp/.X11-unix,target=/tmp/.X11-unix",
+		"type=bind,source=${localEnv:HOME}/.Xauthority,target=/home/${localEnv:USER}/.Xauthority"
+	],
+	// container environment variables
+	"containerEnv": {
+		"DISPLAY": "${localEnv:DISPLAY}",
+		"QT_X11_NO_MITSHM": "1"
+	},
+	// Uncomment to connect as a non-root user. See https://aka.ms/vscode-remote/containers/non-root.
+	"remoteUser": "${localEnv:USER}"
+}
