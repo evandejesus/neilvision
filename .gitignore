@@ -1,4 +1,5 @@
 venv
 virtualenv
+output
 .vscode
 
